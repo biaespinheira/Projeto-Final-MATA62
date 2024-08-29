@@ -1,7 +1,7 @@
-class VerificadorAluno implements IVerificadorEmprestimos {
+class RegraEmprestimoAluno implements IRegraEmprestimo {
     
     @Override
-    public boolean verificarDisponibilidade(Livro livro, Usuario usuario) {
+    public boolean podeEmprestar(Livro livro, Usuario usuario) {
         boolean disponivel = livro.temExemplarDisponivel();
         boolean naoDevedor = true;
         for (Emprestimo emprestimo : usuario.getEmprestimos()) {

@@ -7,15 +7,18 @@ abstract class Usuario {
   private int prazoDias;
   private int limiteLivros;
   private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+
+  private IRegraEmprestimo regraEmprestimo;
     
     // preciso de um metodo para verificar se um usuário já tem reservas para esse livro
   private List<Reserva> reservas = new ArrayList<Reserva>();
 
-  public Usuario(String nome, int codigo, int prazoDias, int limiteLivros) {
+  public Usuario(String nome, int codigo, IRegraEmprestimo regraEmprestimo, int prazoDias, int limiteLivros) {
       this.nome = nome;
       this.codigo = codigo;
       this.prazoDias = prazoDias;
       this.limiteLivros = limiteLivros;
+      this.regraEmprestimo = regraEmprestimo;
   }
 
   public String getNome() {
@@ -53,22 +56,29 @@ abstract class Usuario {
   public void removerReserva(Reserva reserva) {
       reservas.remove(reserva);
   }
+
+  public IRegraEmprestimo getRegraEmprestimo(){
+    return this.regraEmprestimo;
+  }
+
 }
 
 class Graduacao extends Usuario {
-  public Graduacao(String nome, int codigo) {
-      super(nome, codigo, 3, 3);
+  public Graduacao(String nome, int codigo, IRegraEmprestimo regraEmprestimo) {
+      super(nome, codigo, regraEmprestimo, 3, 3);
   }
+
 }
 
 class PosGraduacao extends Usuario {
-  public PosGraduacao(String nome, int codigo) {
-      super(nome, codigo, 5, 4);
+  public PosGraduacao(String nome, int codigo, IRegraEmprestimo regraEmprestimo) {
+      super(nome, codigo, regraEmprestimo, 5, 4);
   }
+
 }
 
 class Professor extends Usuario {
-  public Professor(String nome, int codigo) {
-      super(nome, codigo, 7, Integer.MAX_VALUE); 
+  public Professor(String nome, int codigo, IRegraEmprestimo regraEmprestimo ) {
+      super(nome, codigo, regraEmprestimo, 7, Integer.MAX_VALUE); 
   }
 }
