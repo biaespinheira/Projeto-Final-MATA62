@@ -61,53 +61,16 @@ public class Main {
         sistema.inicializarDadosTeste();
 
         Sistema sis = new Sistema();
-        sis.initComandos(); // inicializa os comandos disponíveis
 
         try (Scanner scanner = new Scanner(System.in)) {
-			while (true) {
-			    System.out.print("Digite o comando (emp/dev/liv): ");
-			    String comando = scanner.nextLine();
-
-			    System.out.print("Digite o código do usuário: ");
-			    int codigoUsuario = Integer.parseInt(scanner.nextLine());
-
-			    System.out.print("Digite o código do livro: ");
-			    int codigoLivro = Integer.parseInt(scanner.nextLine());
-
-			    Usuario usuario = null;
-			    Livro livro = null;
-
-			    // Encontrar o usuário com o código fornecido
-			    for (Usuario u : sistema.usuarios) {
-			        if (u.getCodigo() == codigoUsuario) {
-			            usuario = u;
-			            break;
-			        }
-			    }
-
-			    // Encontrar o livro com o código fornecido
-			    for (Livro l : sistema.livros) {
-			        if (l.getCodigo() == codigoLivro) {
-			            livro = l;
-			            break;
-			        }
-			    }
-
-			    if (usuario != null && livro != null) {
-			        Parametros parametros = new Parametros(usuario, livro, sistema.usuarios, sistema.livros);
-			        sis.executarComando(comando, parametros);
-			    } else {
-			        if (usuario == null) {
-			            System.out.println("Usuário não encontrado.");
-			        }
-			        if (livro == null) {
-			            System.out.println("Livro não encontrado.");
-			        }
-			    }
-			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            while (true) {
+                System.out.println("Digite o comando:");
+                String input = scanner.nextLine();
+                sis.processarEntrada(input, sistema.usuarios, sistema.livros);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
+
 }

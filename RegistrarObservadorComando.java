@@ -1,9 +1,12 @@
-import java.util.List;
-
 class RegistrarObservadorComando implements Comando {
 
     @Override
     public void executar(Parametros parametros) {
-        System.out.println("Falta implementar o método.");
+        Livro livro = parametros.getLivro();
+        Usuario usuario = parametros.getUsuario();
+        Observer observador = (Observer) parametros.getUsuario();
+
+        livro.registrarObservador(observador);
+        System.out.println(usuario.getNome() + " registrado como observador do livro " + livro.getTitulo());
     }
 }
