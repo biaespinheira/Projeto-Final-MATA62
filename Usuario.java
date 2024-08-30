@@ -7,15 +7,20 @@ abstract class Usuario {
   private int prazoDias;
   private int limiteLivros;
   private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+  private int qtdNotificacoes;
+
+  private IRegraEmprestimo regraEmprestimo;
     
     // preciso de um metodo para verificar se um usuário já tem reservas para esse livro
   private List<Reserva> reservas = new ArrayList<Reserva>();
 
-  public Usuario(String nome, int codigo, int prazoDias, int limiteLivros) {
+  public Usuario(String nome, int codigo, IRegraEmprestimo regraEmprestimo, int prazoDias, int limiteLivros) {
       this.nome = nome;
       this.codigo = codigo;
       this.prazoDias = prazoDias;
       this.limiteLivros = limiteLivros;
+      this.regraEmprestimo = regraEmprestimo;
+      this.qtdNotificacoes=0;
   }
 
   public String getNome() {
@@ -50,25 +55,57 @@ abstract class Usuario {
       reservas.add(reserva);
   }
 
-  public void removerReserva(Reserva reserva) {
-      reservas.remove(reserva);
+  public void removerReserva(Livro livro) {
+      for (Reserva reserva : this.reservas){
+        if (reserva.getLivro()==livro){
+            this.reservas.remove(reserva);
+            break;
+        }
+      }
+  }
+
+  public IRegraEmprestimo getRegraEmprestimo(){
+    return this.regraEmprestimo;
+  }
+
+  public boolean temEmprestimo(Livro livro){
+    for (Emprestimo emprestimo : this.emprestimos){
+        if (emprestimo.getLivro()==livro){
+            return true;
+        }
+    }
+    return false;
+  }
+
+  public int qtdReservas(){
+    return this.reservas.size();
+  }
+
+  public int getQtdNotificacoes(){
+    return this.qtdNotificacoes;
+  }
+
+  public void notificar(){
+    this.qtdNotificacoes+=1;
   }
 }
 
 class Graduacao extends Usuario {
-  public Graduacao(String nome, int codigo) {
-      super(nome, codigo, 3, 3);
+  public Graduacao(String nome, int codigo, IRegraEmprestimo regraEmprestimo) {
+      super(nome, codigo, regraEmprestimo, 3, 3);
   }
+
 }
 
 class PosGraduacao extends Usuario {
-  public PosGraduacao(String nome, int codigo) {
-      super(nome, codigo, 5, 4);
+  public PosGraduacao(String nome, int codigo, IRegraEmprestimo regraEmprestimo) {
+      super(nome, codigo, regraEmprestimo, 5, 4);
   }
+
 }
 
 class Professor extends Usuario {
-  public Professor(String nome, int codigo) {
-      super(nome, codigo, 7, Integer.MAX_VALUE); 
+  public Professor(String nome, int codigo, IRegraEmprestimo regraEmprestimo ) {
+      super(nome, codigo, regraEmprestimo, 7, Integer.MAX_VALUE); 
   }
 }

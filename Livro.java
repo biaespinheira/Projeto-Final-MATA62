@@ -10,6 +10,7 @@ class Livro {
     private int edicao;
     private int anoPublicacao;
     private List<Exemplar> exemplares;
+    private List <Reserva> reservas;
 
     public Livro(int codigo, String titulo, String editora, String autores, int edicao, int anoPublicacao) {
         this.codigo = codigo;
@@ -19,6 +20,7 @@ class Livro {
         this.edicao = edicao;
         this.anoPublicacao = anoPublicacao;
         this.exemplares = new ArrayList<Exemplar>();
+        this.reservas = new ArrayList<Reserva>();
     }
 
     public int getCodigo() {
@@ -32,7 +34,7 @@ class Livro {
     public void adicionarExemplar(Exemplar exemplar) {
         exemplares.add(exemplar);
     }
-    // Tem um erro de lógica aqui, o método deve buscar o exemplar pelo código do livro
+    
     public boolean temExemplarDisponivel() {
         for (Exemplar exemplar : exemplares) {
             if (exemplar.isDisponivel()) {
@@ -40,6 +42,20 @@ class Livro {
             }
         }
         return false;
+    }
+
+    public int getQtdDisponiveis(){
+        int qtd=0;
+        for (Exemplar exemplar : exemplares) {
+            if (exemplar.isDisponivel()) {
+                qtd+=1;
+            }
+        }
+        return qtd;
+    }
+    
+    public int getQtdReservas(){
+        return this.reservas.size();
     }
 
     public Exemplar emprestarExemplar() {
@@ -51,4 +67,37 @@ class Livro {
         }
         return null;
     }
+
+    public Exemplar devolverExemplar(){
+        for (Exemplar exemplar : exemplares) {
+            if (!exemplar.isDisponivel()) {
+                exemplar.setDisponivel(true);
+                return exemplar;
+            }
+        }
+        return null;
+    }
+
+    public boolean temReserva(Usuario usuario){
+        for (Reserva reserva : this.reservas){
+            if (reserva.getUsuario()==usuario){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removerReserva(Usuario usuario){
+        for (Reserva reserva : this.reservas){
+            if (reserva.getUsuario()==usuario){
+                this.reservas.remove(reserva);
+                break;
+            }
+        }
+    }
+
+    public void adicionarReserva(Reserva reserva){
+        this.reservas.add(reserva);
+    }
+
 }

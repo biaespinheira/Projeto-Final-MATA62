@@ -1,7 +1,6 @@
 import java.util.Date;
 class Emprestimo {
     private Usuario usuario;
-    //não é preciso livro, pois no exemplar já está o livro
     private Livro livro;
     private Exemplar exemplar;
     private Date dataEmprestimo;
