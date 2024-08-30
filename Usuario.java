@@ -7,6 +7,7 @@ abstract class Usuario {
   private int prazoDias;
   private int limiteLivros;
   private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+  private int qtdNotificacoes;
 
   private IRegraEmprestimo regraEmprestimo;
     
@@ -19,6 +20,7 @@ abstract class Usuario {
       this.prazoDias = prazoDias;
       this.limiteLivros = limiteLivros;
       this.regraEmprestimo = regraEmprestimo;
+      this.qtdNotificacoes=0;
   }
 
   public String getNome() {
@@ -53,14 +55,39 @@ abstract class Usuario {
       reservas.add(reserva);
   }
 
-  public void removerReserva(Reserva reserva) {
-      reservas.remove(reserva);
+  public void removerReserva(Livro livro) {
+      for (Reserva reserva : this.reservas){
+        if (reserva.getLivro()==livro){
+            this.reservas.remove(reserva);
+            break;
+        }
+      }
   }
 
   public IRegraEmprestimo getRegraEmprestimo(){
     return this.regraEmprestimo;
   }
 
+  public boolean temEmprestimo(Livro livro){
+    for (Emprestimo emprestimo : this.emprestimos){
+        if (emprestimo.getLivro()==livro){
+            return true;
+        }
+    }
+    return false;
+  }
+
+  public int qtdReservas(){
+    return this.reservas.size();
+  }
+
+  public int getQtdNotificacoes(){
+    return this.qtdNotificacoes;
+  }
+
+  public void notificar(){
+    this.qtdNotificacoes+=1;
+  }
 }
 
 class Graduacao extends Usuario {
