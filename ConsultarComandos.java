@@ -1,7 +1,13 @@
 class ConsultarLivroComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
-        Livro livro = parametros.getLivro();
+        Repositorio repositorio = parametros.getRepositorio();
+
+        // nesse aqui o segundo parâmetro passado é o livro ao invés do usuário
+        int codigoLivro = parametros.getCodigoUsuario();
+        Livro livro = repositorio.buscarLivro(codigoLivro);
+
+
         System.out
                 .println("Título: " + livro.getTitulo() + ", Exemplares Disponíveis: " + livro.temExemplarDisponivel());
     }
@@ -11,7 +17,13 @@ class ConsultarLivroComando implements Comando {
 class ConsultarUsuarioComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
-        Usuario usuario = parametros.getUsuario();
+
+        Repositorio repositorio = parametros.getRepositorio();
+
+        int codigoUsuario = parametros.getCodigoUsuario();
+        Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
+
+        // ADICIONAR LÓGICA PARA SAÍDA DE INFORMAÇÕES DO USUÁRIO CONFORME PDF
         for (Emprestimo emprestimo : usuario.getEmprestimos()){
             System.out.println(emprestimo.toString());
         }
@@ -24,8 +36,14 @@ class ConsultarUsuarioComando implements Comando {
 class ConsultarNotificacoesComando implements Comando {
     @Override
     public void executar(Parametros parametros){
-        Usuario usuario = parametros.getUsuario();
-        Observer observer = (Observer) parametros.getUsuario();
+
+        Repositorio repositorio = parametros.getRepositorio();
+        int codigoUsuario = parametros.getCodigoUsuario();
+        
+        Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
+
+        Observer observer = (Observer) usuario;
+
         System.out.println(usuario.getNome() + " foi notificado "+ observer.getQtdNotificacoes()+ " vezes.");
     }
 }

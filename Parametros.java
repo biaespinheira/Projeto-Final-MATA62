@@ -1,31 +1,23 @@
- import java.util.List;
-
 public class Parametros {
-    private Usuario usuario;
-    private Livro livro;
-    private List<Usuario> usuarios;
-    private List<Livro> livros;
+    private int codigoUsuario;
+    private int codigoLivro;
+    private Repositorio repositorio;
 
-    public Parametros(Usuario usuario, Livro livro, List<Usuario> usuarios, List<Livro> livros) {
-        this.usuario = usuario;
-        this.livro = livro;
-        this.usuarios = usuarios;
-        this.livros = livros;
+    public Parametros(Repositorio repositorio, int codigoUsuario, int codigoLivro) {
+        this.repositorio = repositorio;
+        this.codigoUsuario = codigoUsuario;
+        this.codigoLivro = codigoLivro;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getCodigoUsuario() {
+        return this.codigoUsuario;
     }
 
-    public Livro getLivro() {
-        return livro;
+    public int getCodigoLivro() {
+        return this.codigoLivro;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public List<Livro> getLivros() {
-        return livros;
+    public Repositorio getRepositorio (){
+        return this.repositorio;
     }
 }
