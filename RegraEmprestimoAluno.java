@@ -4,7 +4,7 @@ class RegraEmprestimoAluno implements IRegraEmprestimo {
     public boolean podeEmprestar(Livro livro, Usuario usuario) {
 
         boolean disponivel = livro.temExemplarDisponivel();
-        System.out.println("Disponível: " + disponivel);
+        //System.out.println("Disponível: " + disponivel);
 
         boolean naoDevedor = true;
         for (Emprestimo emprestimo : usuario.getEmprestimos()) {
@@ -13,23 +13,36 @@ class RegraEmprestimoAluno implements IRegraEmprestimo {
                 break;
             }
         }
-        System.out.println("Não devedor: " + naoDevedor);
 
         boolean abaixoLimite = usuario.getEmprestimos().size() < usuario.getLimiteLivros();
-        System.out.println("Abaixo do limite de empréstimos: " + abaixoLimite);
-
         boolean temReserva = livro.temReserva(usuario);
-        System.out.println("Usuário tem reserva: " + temReserva);
-
+        //essa variavel deve ser nomeada somente semReserva, não?
         boolean disponivelSemReserva = livro.getQtdDisponiveis() > livro.getQtdReservas();
-        System.out.println("Disponível sem reserva: " + disponivelSemReserva);
-
         boolean jaEmprestado = usuario.temEmprestimo(livro);
-        System.out.println("Ja tem empréstimo do livro: " + jaEmprestado);
-
         boolean podeEmprestar = disponivel && naoDevedor && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
-        System.out.println("Usuário " + usuario.getNome() + " pode pegar emprestado? " + podeEmprestar);
-        
+
+
+        if(podeEmprestar){
+            System.out.println("Estudante " + usuario.getNome() + " pode pegar o livro!");
+        }
+        if(!disponivel){
+            System.out.println("Estudante " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
+        }
+        if(!naoDevedor){
+            System.out.println("Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
+        }
+        if(!abaixoLimite){
+            System.out.println("Estudante " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de livros emprestados!");
+        }
+        if(jaEmprestado){
+            System.out.println("Estudante " + usuario.getNome() + " não pode pegar o livro pois já tem "+ livro.getTitulo() + " emprestado!");
+        }
+        if(!(temReserva || disponivelSemReserva) ){
+            System.out.println("Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!");
+        }
+
+
+
         return podeEmprestar;
     }
 }

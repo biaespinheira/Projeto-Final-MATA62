@@ -26,10 +26,7 @@ class EmprestarComando implements Comando {
             livro.removerReserva(usuario);
             usuario.removerReserva(livro);
 
-            System.out.println("Empréstimo realizado: " + usuario.getNome() + " pegou o livro."
-                    + livro.getTitulo());
-        } else {
-            System.out.println("Empréstimo não pode ser realizado para " + usuario.getNome());
+            System.out.println("Empréstimo realizado: " + usuario.getNome() + " pegou o livro: " + livro.getTitulo());
         }
     }
 
