@@ -4,10 +4,13 @@ class ReservarComando implements Comando {
 
     @Override
     public void executar(Parametros parametros) {
+        Repositorio repositorio = parametros.getRepositorio();
 
+        int codigoLivro = parametros.getCodigoLivro();
+        Livro livro = repositorio.buscarLivro(codigoLivro);
 
-        Usuario usuario = parametros.getUsuario();
-        Livro livro = parametros.getLivro();
+        int codigoUsuario = parametros.getCodigoUsuario();
+        Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
         if (usuario.qtdReservas()<3){
             System.out.println("Reserva realizada: " + usuario.getNome() + " reservou "+ livro.getTitulo());

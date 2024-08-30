@@ -5,10 +5,14 @@ class EmprestarComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
 
+        Repositorio repositorio = parametros.getRepositorio();
 
-        Usuario usuario = parametros.getUsuario();
-        Livro livro = parametros.getLivro();
-        
+        int codigoLivro = parametros.getCodigoLivro();
+        Livro livro = repositorio.buscarLivro(codigoLivro);
+
+        int codigoUsuario = parametros.getCodigoUsuario();
+        Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
+
         IRegraEmprestimo regraEmprestimo = usuario.getRegraEmprestimo();
 
         if (regraEmprestimo.podeEmprestar(livro, usuario)) {

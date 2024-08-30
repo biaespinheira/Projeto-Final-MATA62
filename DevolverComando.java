@@ -4,12 +4,18 @@ class DevolverComando implements Comando {
 
     @Override
     public void executar(Parametros parametros) {
-        Usuario usuario = parametros.getUsuario();
+        Repositorio repositorio = parametros.getRepositorio();
+
+        int codigoLivro = parametros.getCodigoLivro();
+        Livro livro = repositorio.buscarLivro(codigoLivro);
+
+        int codigoUsuario = parametros.getCodigoUsuario();
+        Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
+
         List <Emprestimo> emprestimos = usuario.getEmprestimos();
-        Livro livro = parametros.getLivro();
 
         for (Emprestimo emprestimo : emprestimos) {
-
+            
             if (emprestimo.getLivro().equals(livro)) {
 
                 emprestimo.getLivro().devolverExemplar();
@@ -20,6 +26,6 @@ class DevolverComando implements Comando {
             }
 
         }
-        System.out.println("Nenhum empréstimo encontrado para devolução.");
+        System.out.println("Usuário não possui emprestimos em aberto para esse livro.\n");
     }
 }
