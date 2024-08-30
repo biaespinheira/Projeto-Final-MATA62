@@ -1,7 +1,11 @@
 import java.util.List;
 import java.util.ArrayList;
 
-class Livro {
+interface Subject {
+    void registrarObservador(Observer observer);
+}
+
+class Livro implements Subject{
     
     private int codigo;
     private String titulo;
@@ -11,6 +15,7 @@ class Livro {
     private int anoPublicacao;
     private List<Exemplar> exemplares;
     private List <Reserva> reservas;
+    private List <Observer> observers;
 
     public Livro(int codigo, String titulo, String editora, String autores, int edicao, int anoPublicacao) {
         this.codigo = codigo;
@@ -21,6 +26,7 @@ class Livro {
         this.anoPublicacao = anoPublicacao;
         this.exemplares = new ArrayList<Exemplar>();
         this.reservas = new ArrayList<Reserva>();
+        this.observers = new ArrayList<Observer>();
     }
 
     public int getCodigo() {
@@ -98,6 +104,18 @@ class Livro {
 
     public void adicionarReserva(Reserva reserva){
         this.reservas.add(reserva);
+        this.notificarObservadores();
     }
 
+    @Override
+    public void registrarObservador(Observer observer){
+        // talvez precise verificar se o usuário já é observador
+        this.observers.add(observer);
+    }
+
+    public void notificarObservadores(){
+        if (this.getQtdReservas()>=2){
+            observers.forEach(o -> o.notificar());
+        }
+    }
 }

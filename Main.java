@@ -71,6 +71,7 @@ public class Main {
 			    System.out.print("Digite o código do usuário: ");
 			    int codigoUsuario = Integer.parseInt(scanner.nextLine());
 
+                // no caso de "ntf" ou "usu", não deve ter código do livro
 			    System.out.print("Digite o código do livro: ");
 			    int codigoLivro = Integer.parseInt(scanner.nextLine());
 
@@ -106,7 +107,6 @@ public class Main {
 			    }
 			}
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

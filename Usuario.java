@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+
 abstract class Usuario {
 
   private int codigo; 
@@ -7,7 +8,6 @@ abstract class Usuario {
   private int prazoDias;
   private int limiteLivros;
   private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
-  private int qtdNotificacoes;
 
   private IRegraEmprestimo regraEmprestimo;
     
@@ -20,7 +20,6 @@ abstract class Usuario {
       this.prazoDias = prazoDias;
       this.limiteLivros = limiteLivros;
       this.regraEmprestimo = regraEmprestimo;
-      this.qtdNotificacoes=0;
   }
 
   public String getNome() {
@@ -81,13 +80,6 @@ abstract class Usuario {
     return this.reservas.size();
   }
 
-  public int getQtdNotificacoes(){
-    return this.qtdNotificacoes;
-  }
-
-  public void notificar(){
-    this.qtdNotificacoes+=1;
-  }
 }
 
 class Graduacao extends Usuario {
@@ -104,8 +96,27 @@ class PosGraduacao extends Usuario {
 
 }
 
-class Professor extends Usuario {
-  public Professor(String nome, int codigo, IRegraEmprestimo regraEmprestimo ) {
-      super(nome, codigo, regraEmprestimo, 7, Integer.MAX_VALUE); 
-  }
+interface Observer {
+    void notificar();
+    int getQtdNotificacoes();
+}
+
+class Professor extends Usuario implements Observer{
+
+    private int qtdNotificacoes; 
+
+    public Professor(String nome, int codigo, IRegraEmprestimo regraEmprestimo ) {
+        super(nome, codigo, regraEmprestimo, 7, Integer.MAX_VALUE);
+        this.qtdNotificacoes=0;
+    }
+
+    @Override
+    public void notificar(){
+        this.qtdNotificacoes+=1;
+    }
+
+    @Override
+    public int getQtdNotificacoes(){
+        return this.qtdNotificacoes;
+    }
 }

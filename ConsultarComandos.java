@@ -25,6 +25,7 @@ class ConsultarNotificacoesComando implements Comando {
     @Override
     public void executar(Parametros parametros){
         Usuario usuario = parametros.getUsuario();
-        System.out.println("Usuário notificado "+ usuario.getQtdNotificacoes() + " vezes.");
+        Observer observer = (Observer) parametros.getUsuario();
+        System.out.println(usuario.getNome() + " foi notificado "+ observer.getQtdNotificacoes()+ " vezes.");
     }
 }
