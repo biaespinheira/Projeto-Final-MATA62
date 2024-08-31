@@ -118,5 +118,8 @@ class Livro implements Subject{
             observers.forEach(o -> o.notificar());
         }
     }
+    public List<Reserva> getListaReservas(){
+        return reservas;
+    }
 
 }
