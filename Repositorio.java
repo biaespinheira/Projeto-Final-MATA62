@@ -59,10 +59,10 @@ public class Repositorio {
         this.livros.add(livro8);
 
         // Adicionar usuários
-        Usuario aluno1 = new Graduacao("João Silva", 123, new RegraEmprestimoAluno(null,null));
-        Usuario aluno2 = new PosGraduacao("Luiz Fernando Rodrigues", 456, new RegraEmprestimoAluno(null,null));
-        Usuario aluno3 = new Graduacao("Pedro Paulo", 789, new RegraEmprestimoAluno(null,null));
-        Usuario professor1 = new Professor("Carlos Lucena", 100, new RegraEmprestimoProfessor(null,null));
+        Usuario aluno1 = new Graduacao("João Silva", 123, new RegraEmprestimoAluno());
+        Usuario aluno2 = new PosGraduacao("Luiz Fernando Rodrigues", 456, new RegraEmprestimoAluno());
+        Usuario aluno3 = new Graduacao("Pedro Paulo", 789, new RegraEmprestimoAluno());
+        Usuario professor1 = new Professor("Carlos Lucena", 100, new RegraEmprestimoProfessor());
 
         this.usuarios.add(aluno1);
         this.usuarios.add(aluno2);

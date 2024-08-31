@@ -1,30 +1,28 @@
-class RegraEmprestimoProfessor extends RegraEmprestimo implements IRegraEmprestimo {
-    public RegraEmprestimoProfessor(Boolean disponivel, Boolean naoDevedor) {
-        super(disponivel, naoDevedor);
-    }
+class RegraEmprestimoProfessor  implements IRegraEmprestimo {
+
     @Override
     public ResultadoEmprestimo podeEmprestar(Livro livro, Usuario usuario) {
-        setDisponivel(livro.temExemplarDisponivel());
-        setNaoDevedor(true);
+        Boolean disponivel = livro.temExemplarDisponivel();
 
+        Boolean naoDevedor = true;
         for (Emprestimo emprestimo : usuario.getEmprestimos()) {
             if (emprestimo.isAtrasado()) {
-                setNaoDevedor(false);
+                naoDevedor = false;
                 break;
             }
         }
 
-        boolean podeEmprestar = isDisponivel() && isNaoDevedor();
+        boolean podeEmprestar = disponivel && naoDevedor;
         String mensagem = "";
 
         if (podeEmprestar) {
-            mensagem = "Professor " + usuario.getNome() + " pode pegar o livro!\n";
+            mensagem = "Professor " + usuario.getNome() + " pode pegar o livro!";
         }
-        if (!isNaoDevedor()) {
+        if (!naoDevedor) {
             mensagem += "Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n";
         }
-        if(!isDisponivel()){
-            mensagem += "Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!\n";
+        if(!disponivel){
+            mensagem += "Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!";
         }
 
         return new ResultadoEmprestimo(podeEmprestar, mensagem);

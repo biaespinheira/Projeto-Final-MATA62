@@ -1,37 +1,37 @@
-class RegraEmprestimoAluno extends RegraEmprestimo implements IRegraEmprestimo {
+class RegraEmprestimoAluno  implements IRegraEmprestimo {
 
-    public RegraEmprestimoAluno(Boolean disponivel, Boolean naoDevedor) {
-        super(disponivel, naoDevedor);
-    }
 
     @Override
     public ResultadoEmprestimo podeEmprestar(Livro livro, Usuario usuario) {
-        setNaoDevedor(true);
+
+        Boolean naoDevedor = true;
         for (Emprestimo emprestimo : usuario.getEmprestimos()) {
             if (emprestimo.isAtrasado()) {
-                setNaoDevedor(false);
+                naoDevedor = false;
                 break;
             }
         }
 
-        setDisponivel(livro.temExemplarDisponivel());
+        boolean disponivel = livro.temExemplarDisponivel();
+
+
         boolean abaixoLimite = usuario.getEmprestimos().size() < usuario.getLimiteLivros();
         boolean temReserva = livro.temReserva(usuario);
         boolean disponivelSemReserva = livro.getQtdExemplaresDisponiveis() > livro.getQtdReservas();
         boolean jaEmprestado = usuario.temEmprestimo(livro);
         boolean qtdReservasQtdExemplares = livro.getQtdReservas()<livro.getQtdExemplaresDisponiveis();
-        boolean podeEmprestar = isDisponivel() && isNaoDevedor() && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
+        boolean podeEmprestar = disponivel && naoDevedor && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
 
         String mensagem = "";
         if (podeEmprestar) {
             mensagem = "Estudante " + usuario.getNome() + " pode pegar o livro!";
         }
         else{
-            if (!isNaoDevedor()) {
+            if (!naoDevedor) {
 
                 mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n";
             }
-          if (!isDisponivel()) {
+          if (!disponivel) {
             mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!\n";
         }  if (!abaixoLimite) {
             mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de livros emprestados!\n";
