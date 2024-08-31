@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class ConsultarLivroComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
@@ -5,17 +8,23 @@ class ConsultarLivroComando implements Comando {
         int codigoUsuario = parametros.getCodigoUsuario();
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
+
         // nesse aqui o segundo parâmetro passado é o livro ao invés do usuário
         int codigoLivro = parametros.getCodigoUsuario();
         Livro livro = repositorio.buscarLivro(codigoLivro);
 
 
+
         System.out.println("Título: " + livro.getTitulo());
 
         System.out.println("Quantidade de reservas: " + livro.getQtdReservas());
-        if(livro.getQtdReservas()!=0){
-            for (Reserva reserva : usuario.getReservas()){
-                System.out.println(reserva.getUsuario().getNome());
+        if(livro.getQtdReservas()>=0){
+            for(int j=0 ; j<livro.getListaReservas().size();j++) {
+
+                        System.out.println(
+                                "Nome da pessoa que reservou: " + livro.getListaReservas().get(j).getUsuario().getNome()
+                        );
+
             }
         }
 
@@ -38,12 +47,15 @@ class ConsultarUsuarioComando implements Comando {
         int codigoUsuario = parametros.getCodigoUsuario();
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
+        System.out.println(usuario.getNome());
+
         // ADICIONAR LÓGICA PARA SAÍDA DE INFORMAÇÕES DO USUÁRIO CONFORME PDF
         for (Emprestimo emprestimo : usuario.getEmprestimos()){
-            System.out.println(emprestimo.toString());
+            System.out.println(usuario.getNome()+ "realizou reserva de " + emprestimo.getLivro().getTitulo());
         }
         for (Reserva reserva : usuario.getReservas()){
-            System.out.println(reserva.toString());
+            System.out.println(usuario.getNome()+ "realizou reserva de "+ reserva.getLivro().getTitulo());
+
         }
     }
 }
