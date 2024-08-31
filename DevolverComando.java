@@ -21,6 +21,10 @@ class DevolverComando implements Comando {
                 emprestimo.getLivro().devolverExemplar();
 
                 emprestimos.remove(emprestimo);
+
+                usuario.adicionarEmprestimoAntigo( emprestimo);
+
+
                 System.out.println("Devolução realizada: " + usuario.getNome() + " devolveu "+ livro.getTitulo());
                 return;
             }

@@ -9,6 +9,7 @@ abstract class Usuario {
   private int limiteLivros;
   // isso não deve ser passado no construtor?
   private List<Emprestimo> emprestimos;
+    private List<Emprestimo> emprestimosAntigos;
 
 
   private IRegraEmprestimo regraEmprestimo;
@@ -23,6 +24,7 @@ abstract class Usuario {
       this.limiteLivros = limiteLivros;
       this.regraEmprestimo = regraEmprestimo;
       this.emprestimos = new ArrayList<Emprestimo>();
+      this.emprestimosAntigos = new ArrayList<Emprestimo>();
       this.reservas = new ArrayList<Reserva>();
   }
 
@@ -53,6 +55,10 @@ abstract class Usuario {
   public void adicionarEmprestimo(Emprestimo emprestimo) {
       emprestimos.add(emprestimo);
   }
+
+  public void adicionarEmprestimoAntigo(Emprestimo emprestimoAntigo) {
+        emprestimosAntigos.add(emprestimoAntigo);
+    }
 
   public void adicionarReserva(Reserva reserva) {
       reservas.add(reserva);
