@@ -20,7 +20,7 @@ class RegraEmprestimoAluno extends RegraEmprestimo implements IRegraEmprestimo {
         boolean disponivelSemReserva = livro.getQtdExemplaresDisponiveis() > livro.getQtdReservas();
         boolean jaEmprestado = usuario.temEmprestimo(livro);
         boolean qtdReservasQtdExemplares = livro.getQtdReservas()<livro.getQtdExemplaresDisponiveis();
-        boolean podeEmprestar = isDisponivel() && isNaoDevedor() && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado&&qtdReservasQtdExemplares;
+        boolean podeEmprestar = isDisponivel() && isNaoDevedor() && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
 
         String mensagem = "";
         if (podeEmprestar) {
@@ -40,9 +40,7 @@ class RegraEmprestimoAluno extends RegraEmprestimo implements IRegraEmprestimo {
         } if(!(temReserva || disponivelSemReserva) ){
             mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!\n";
         }
-          if(!qtdReservasQtdExemplares){
-              mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois tem mais reservas que exemplares!\n";
-          }
+
     }
 
         return new ResultadoEmprestimo(podeEmprestar, mensagem);
