@@ -51,10 +51,10 @@ class ConsultarUsuarioComando implements Comando {
 
         // ADICIONAR LÓGICA PARA SAÍDA DE INFORMAÇÕES DO USUÁRIO CONFORME PDF
         for (Emprestimo emprestimo : usuario.getEmprestimos()){
-            System.out.println(usuario.getNome()+ "realizou reserva de " + emprestimo.getLivro().getTitulo());
+            System.out.println(usuario.getNome()+ " realizou reserva de " + emprestimo.getLivro().getTitulo());
         }
         for (Reserva reserva : usuario.getReservas()){
-            System.out.println(usuario.getNome()+ "realizou reserva de "+ reserva.getLivro().getTitulo());
+            System.out.println(usuario.getNome()+ " realizou reserva de "+ reserva.getLivro().getTitulo());
 
         }
     }
