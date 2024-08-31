@@ -87,4 +87,11 @@ public class Repositorio {
         }
         return null;
     }
+
+    public List<Livro> getListaLivros(){
+        return livros;
+    }
+    public List<Usuario> getListaUsuarios(){
+        return usuarios;
+    }
 }
