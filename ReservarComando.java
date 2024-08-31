@@ -12,12 +12,15 @@ class ReservarComando implements Comando {
         int codigoUsuario = parametros.getCodigoUsuario();
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
-        if (usuario.qtdReservas()<3){
+        if (usuario.qtdReservas()<usuario.getLimiteLivros()){
             System.out.println("Reserva realizada: " + usuario.getNome() + " reservou "+ livro.getTitulo());
             Reserva reserva = new Reserva(usuario, livro, new Date());
             usuario.adicionarReserva(reserva);
             livro.adicionarReserva(reserva);
 
+        }
+        else{
+            System.out.println("Reserva não realizada: " + usuario.getNome() + " tentou reservar mais que "+usuario.getLimiteLivros()+" livros");
         }
     }
 
