@@ -123,6 +123,8 @@ class Livro implements Subject{
     public List<Reserva> getListaReservas(){
         return reservas;
     }
-
+    public List<Exemplar> getListaExemplares(){
+        return exemplares;
+    }
 
 }

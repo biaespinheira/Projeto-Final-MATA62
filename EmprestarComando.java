@@ -25,7 +25,12 @@ class EmprestarComando implements Comando {
                             System.currentTimeMillis() + usuario.getPrazoDias() * 24 * 60 * 60 * 1000));
 
             usuario.adicionarEmprestimo(emprestimo);
-            livro.removerReserva(usuario);
+
+            exemplarEmprestado.setEmprestimo(emprestimo);
+
+
+
+        livro.removerReserva(usuario);
             usuario.removerReserva(livro);
 
             resultado.printar();

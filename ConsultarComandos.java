@@ -2,15 +2,11 @@ class ConsultarLivroComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
         Repositorio repositorio = parametros.getRepositorio();
-        int codigoUsuario = parametros.getCodigoUsuario();
-        Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
 
         // nesse aqui o segundo parâmetro passado é o livro ao invés do usuário
         int codigoLivro = parametros.getCodigoUsuario();
         Livro livro = repositorio.buscarLivro(codigoLivro);
-
-
 
         System.out.println("Título: " + livro.getTitulo());
 
@@ -30,6 +26,17 @@ class ConsultarLivroComando implements Comando {
         else
             System.out.println("Exemplares Disponíveis: 0");
 
+
+        for(int j=0 ; j<livro.getListaExemplares().size();j++) {
+            // "Nome da pessoa que emprestou: " + livro.getListaExemplares().get(j).getEmprestimo().getUsuario().getNome()
+            if(livro.getListaExemplares().get(j).isDisponivel() == false){
+                System.out.println(
+                        "Nome da pessoa que emprestou: " + livro.getListaExemplares().get(j).getEmprestimo().getUsuario().getNome()
+                );
+            }
+
+
+        }
 
     }
 }

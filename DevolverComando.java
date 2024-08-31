@@ -14,13 +14,17 @@ class DevolverComando implements Comando {
 
         List <Emprestimo> emprestimos = usuario.getEmprestimos();
 
+
+
         for (Emprestimo emprestimo : emprestimos) {
             
             if (emprestimo.getLivro().equals(livro)) {
 
                 emprestimo.getLivro().devolverExemplar();
 
+                emprestimo.setExemplar(null);
                 emprestimos.remove(emprestimo);
+
 
                 usuario.adicionarEmprestimoAntigo(emprestimo);
 
