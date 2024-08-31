@@ -18,6 +18,7 @@ public class Sistema {
         comandos.put("sai", new SairComando());
     }
 
+
     public void executarComando(String strComando, Parametros parametros) {
         Comando comando = comandos.get(strComando);
         if (comando != null) {

@@ -1,6 +1,3 @@
-
-interface IRegraEmprestimo {
-    boolean podeEmprestar(Livro livro, Usuario usuario);
+public interface IRegraEmprestimo {
+    ResultadoEmprestimo podeEmprestar(Livro livro, Usuario usuario);
 }
-
-

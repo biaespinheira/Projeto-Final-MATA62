@@ -14,8 +14,10 @@ class EmprestarComando implements Comando {
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
         IRegraEmprestimo regraEmprestimo = usuario.getRegraEmprestimo();
+        ResultadoEmprestimo resultado = regraEmprestimo.podeEmprestar(livro, usuario);
 
-        if (regraEmprestimo.podeEmprestar(livro, usuario)) {
+
+        if (resultado.podeEmprestar()) {
             Exemplar exemplarEmprestado = livro.emprestarExemplar();
             Emprestimo emprestimo = new Emprestimo(usuario, livro, exemplarEmprestado,
                     new Date(),
@@ -26,8 +28,12 @@ class EmprestarComando implements Comando {
             livro.removerReserva(usuario);
             usuario.removerReserva(livro);
 
+            resultado.printar();
             System.out.println("Empréstimo realizado: " + usuario.getNome() + " pegou o livro: " + livro.getTitulo());
+        }else{
+            resultado.printar();
         }
+
     }
 
 

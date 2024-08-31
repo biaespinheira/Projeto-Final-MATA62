@@ -1,33 +1,34 @@
-class RegraEmprestimoProfessor implements IRegraEmprestimo {
-
+class RegraEmprestimoProfessor extends RegraEmprestimo implements IRegraEmprestimo {
+    public RegraEmprestimoProfessor(Boolean disponivel, Boolean naoDevedor) {
+        super(disponivel, naoDevedor);
+    }
     @Override
-    public boolean podeEmprestar(Livro livro, Usuario usuario) {
-        boolean disponivel = livro.temExemplarDisponivel();
-        boolean naoDevedor = true;
+    public ResultadoEmprestimo podeEmprestar(Livro livro, Usuario usuario) {
+        setDisponivel(livro.temExemplarDisponivel());
+        setNaoDevedor(true);
 
-        // talvez fazer isso dentro de usuario;
         for (Emprestimo emprestimo : usuario.getEmprestimos()) {
             if (emprestimo.isAtrasado()) {
-                naoDevedor = false;
+                setNaoDevedor(false);
                 break;
             }
         }
-        
-        boolean podeEmprestar = disponivel && naoDevedor;
 
+        boolean podeEmprestar = isDisponivel() && isNaoDevedor();
+        String mensagem = "";
 
-        if(podeEmprestar){
-            System.out.println("Professor " + usuario.getNome() + " pode pegar o livro!");
+        if (podeEmprestar) {
+            mensagem = "Professor " + usuario.getNome() + " pode pegar o livro!";
         }
-        if(!naoDevedor){
-            System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
+        if (!isNaoDevedor()) {
+            mensagem = "Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!";
         }
-        if(!disponivel){
-            System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
+        if(!isDisponivel()){
+            mensagem = "Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!";
         }
 
+        return new ResultadoEmprestimo(podeEmprestar, mensagem);
 
-
-        return podeEmprestar;
     }
 }
+

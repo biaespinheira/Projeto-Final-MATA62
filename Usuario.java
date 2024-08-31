@@ -78,6 +78,15 @@ abstract class Usuario {
     return false;
   }
 
+//    public boolean temReserva(Livro livro ){
+//        for (Reserva reserva : this.reservas){
+//            if (reserva.getLivro()==livro){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
   public int qtdReservas(){
     return this.reservas.size();
   }
