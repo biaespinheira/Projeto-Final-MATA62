@@ -25,15 +25,15 @@ class RegraEmprestimoAluno extends RegraEmprestimo implements IRegraEmprestimo {
         if (podeEmprestar) {
             mensagem = "Estudante " + usuario.getNome() + " pode pegar o livro!";
         }  if (!isNaoDevedor()) {
-            mensagem = "Estudante " + usuario.getNome() + " não pode pegar o livro pois está devedor!";
+            mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n";
         }  if (!isDisponivel()) {
-            mensagem = "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!";
+            mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!\n";
         }  if (!abaixoLimite) {
-            mensagem = "Estudante " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de livros emprestados!";
+            mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de livros emprestados!\n";
         }  if (jaEmprestado) {
-            mensagem = "Estudante " + usuario.getNome() + " não pode pegar o livro pois já tem " + livro.getTitulo() + " emprestado!";
+            mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois já tem " + livro.getTitulo() + " emprestado!\n";
         } if(!(temReserva || disponivelSemReserva) ){
-            mensagem = "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!";
+            mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!\n";
         }
 
         return new ResultadoEmprestimo(podeEmprestar, mensagem);

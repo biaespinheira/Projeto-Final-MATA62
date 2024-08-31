@@ -18,13 +18,13 @@ class RegraEmprestimoProfessor extends RegraEmprestimo implements IRegraEmpresti
         String mensagem = "";
 
         if (podeEmprestar) {
-            mensagem = "Professor " + usuario.getNome() + " pode pegar o livro!";
+            mensagem = "Professor " + usuario.getNome() + " pode pegar o livro!\n";
         }
         if (!isNaoDevedor()) {
-            mensagem = "Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!";
+            mensagem += "Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n";
         }
         if(!isDisponivel()){
-            mensagem = "Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!";
+            mensagem += "Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!\n";
         }
 
         return new ResultadoEmprestimo(podeEmprestar, mensagem);
