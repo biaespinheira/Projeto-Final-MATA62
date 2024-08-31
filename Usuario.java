@@ -10,10 +10,11 @@ abstract class Usuario {
   // isso não deve ser passado no construtor?
   private List<Emprestimo> emprestimos;
 
+
   private IRegraEmprestimo regraEmprestimo;
     
     // preciso de um metodo para verificar se um usuário já tem reservas para esse livro
-  private List<Reserva> reservas = new ArrayList<Reserva>();
+  private List<Reserva> reservas;
 
   public Usuario(String nome, int codigo, IRegraEmprestimo regraEmprestimo, int prazoDias, int limiteLivros) {
       this.nome = nome;
@@ -21,7 +22,8 @@ abstract class Usuario {
       this.prazoDias = prazoDias;
       this.limiteLivros = limiteLivros;
       this.regraEmprestimo = regraEmprestimo;
-      this.emprestimos = new ArrayList<>();
+      this.emprestimos = new ArrayList<Emprestimo>();
+      this.reservas = new ArrayList<Reserva>();
   }
 
   public String getNome() {
