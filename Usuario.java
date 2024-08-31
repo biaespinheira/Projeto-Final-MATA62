@@ -7,7 +7,8 @@ abstract class Usuario {
   private String nome;
   private int prazoDias;
   private int limiteLivros;
-  private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+  // isso não deve ser passado no construtor?
+  private List<Emprestimo> emprestimos;
 
   private IRegraEmprestimo regraEmprestimo;
     
@@ -20,6 +21,7 @@ abstract class Usuario {
       this.prazoDias = prazoDias;
       this.limiteLivros = limiteLivros;
       this.regraEmprestimo = regraEmprestimo;
+      this.emprestimos = new ArrayList<>();
   }
 
   public String getNome() {

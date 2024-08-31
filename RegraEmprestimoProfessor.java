@@ -1,6 +1,6 @@
 class RegraEmprestimoProfessor implements IRegraEmprestimo {
+
     @Override
-    
     public boolean podeEmprestar(Livro livro, Usuario usuario) {
         boolean disponivel = livro.temExemplarDisponivel();
         boolean naoDevedor = true;
@@ -25,7 +25,7 @@ class RegraEmprestimoProfessor implements IRegraEmprestimo {
         if(!disponivel){
             System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
         }
-        
+
 
 
         return podeEmprestar;

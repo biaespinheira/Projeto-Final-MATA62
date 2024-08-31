@@ -114,7 +114,7 @@ class Livro implements Subject{
     }
 
     public void notificarObservadores(){
-        if (this.getQtdReservas()>=2){
+        if (this.getQtdReservas()>2){
             observers.forEach(o -> o.notificar());
         }
     }
