@@ -17,6 +17,7 @@ class Livro implements Subject{
     private List <Reserva> reservas;
     private List <Observer> observers;
 
+
     public Livro(int codigo, String titulo, String editora, String autores, int edicao, int anoPublicacao) {
         this.codigo = codigo;
         this.titulo = titulo;
@@ -37,10 +38,11 @@ class Livro implements Subject{
         return titulo;
     }
 
+
     public void adicionarExemplar(Exemplar exemplar) {
         exemplares.add(exemplar);
     }
-    
+
     public boolean temExemplarDisponivel() {
         for (Exemplar exemplar : exemplares) {
             if (exemplar.isDisponivel()) {
@@ -50,7 +52,7 @@ class Livro implements Subject{
         return false;
     }
 
-    public int getQtdDisponiveis(){
+    public int getQtdExemplaresDisponiveis(){
         int qtd=0;
         for (Exemplar exemplar : exemplares) {
             if (exemplar.isDisponivel()) {
@@ -121,5 +123,6 @@ class Livro implements Subject{
     public List<Reserva> getListaReservas(){
         return reservas;
     }
+
 
 }

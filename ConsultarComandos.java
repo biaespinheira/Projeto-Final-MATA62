@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class ConsultarLivroComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
@@ -29,7 +26,7 @@ class ConsultarLivroComando implements Comando {
         }
 
         if(livro.temExemplarDisponivel())
-            System.out.println( "Exemplares Disponíveis: " + livro.getQtdDisponiveis());
+            System.out.println( "Exemplares Disponíveis: " + livro.getQtdExemplaresDisponiveis());
         else
             System.out.println("Exemplares Disponíveis: 0");
 

@@ -17,16 +17,21 @@ class RegraEmprestimoAluno extends RegraEmprestimo implements IRegraEmprestimo {
         setDisponivel(livro.temExemplarDisponivel());
         boolean abaixoLimite = usuario.getEmprestimos().size() < usuario.getLimiteLivros();
         boolean temReserva = livro.temReserva(usuario);
-        boolean disponivelSemReserva = livro.getQtdDisponiveis() > livro.getQtdReservas();
+        boolean disponivelSemReserva = livro.getQtdExemplaresDisponiveis() > livro.getQtdReservas();
         boolean jaEmprestado = usuario.temEmprestimo(livro);
-        boolean podeEmprestar = isDisponivel() && isNaoDevedor() && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
+        boolean qtdReservasQtdExemplares = livro.getQtdReservas()<livro.getQtdExemplaresDisponiveis();
+        boolean podeEmprestar = isDisponivel() && isNaoDevedor() && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado&&qtdReservasQtdExemplares;
 
         String mensagem = "";
         if (podeEmprestar) {
             mensagem = "Estudante " + usuario.getNome() + " pode pegar o livro!";
-        }  if (!isNaoDevedor()) {
-            mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n";
-        }  if (!isDisponivel()) {
+        }
+        else{
+            if (!isNaoDevedor()) {
+
+                mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n";
+            }
+          if (!isDisponivel()) {
             mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!\n";
         }  if (!abaixoLimite) {
             mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de livros emprestados!\n";
@@ -35,6 +40,10 @@ class RegraEmprestimoAluno extends RegraEmprestimo implements IRegraEmprestimo {
         } if(!(temReserva || disponivelSemReserva) ){
             mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!\n";
         }
+          if(!qtdReservasQtdExemplares){
+              mensagem += "Estudante " + usuario.getNome() + " não pode pegar o livro pois tem mais reservas que exemplares!\n";
+          }
+    }
 
         return new ResultadoEmprestimo(podeEmprestar, mensagem);
     }
