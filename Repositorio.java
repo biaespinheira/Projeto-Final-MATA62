@@ -12,7 +12,7 @@ public class Repositorio {
 
     }
 
-    public static synchronized Repositorio getInstance() {
+    public static synchronized Repositorio getInstancia() {
         if (instancia == null) {
             instancia = new Repositorio();
         }

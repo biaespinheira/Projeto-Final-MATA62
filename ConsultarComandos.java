@@ -1,24 +1,28 @@
 class ConsultarLivroComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
+
+        ConsoleIO console = ConsoleIO.getInstancia();
         Repositorio repositorio = parametros.getRepositorio();
 
         // nesse aqui o segundo parâmetro passado é o livro ao invés do usuário
         int codigoLivro = parametros.getCodigoUsuario();
         Livro livro = repositorio.buscarLivro(codigoLivro);
 
-        System.out.println("\nTítulo: " + livro.getTitulo());
-        System.out.println("Quantidade de reservas: " + livro.getQtdReservas());
+        String informacoes="\n";
+
+        informacoes+="Título: " + livro.getTitulo();
+        informacoes+="Quantidade de reservas: " + livro.getQtdReservas();
 
         if(livro.getQtdReservas()>=0){
             for(Reserva reserva : livro.getReservas()) {
-                        System.out.println("Nome da pessoa que reservou: " + reserva.getUsuario().getNome());
+                        informacoes+="Nome da pessoa que reservou: " + reserva.getUsuario().getNome();
             }
         }
 
         if(livro.temExemplarDisponivel()){
             for (Exemplar exemplar : livro.getExemplares()){
-                System.out.println("\nCódigo do exemplar: " + exemplar.getCodigo());
+                informacoes+="\nCódigo do exemplar: " + exemplar.getCodigo();
 
                 String status = "Disponível";
                 if (!exemplar.isDisponivel()){
@@ -29,12 +33,13 @@ class ConsultarLivroComando implements Comando {
                     status+= "| Data de devolução: " + emprestimo.getDataDevolucao();
                 }
 
-                System.out.println("Status: "+ status + "\n");
+                informacoes+="Status: "+ status + "\n";
+                console.mostrarMensagem(informacoes);
             }
 
         }    
         else{
-            System.out.println("\nExemplares Disponíveis: 0\n");
+            console.mostrarMensagem("\nExemplares Disponíveis: 0\n");
         }
 }
 }
@@ -44,6 +49,7 @@ class ConsultarUsuarioComando implements Comando {
     public void executar(Parametros parametros) {
 
         Repositorio repositorio = parametros.getRepositorio();
+        ConsoleIO console = ConsoleIO.getInstancia();
 
         int codigoUsuario = parametros.getCodigoUsuario();
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
@@ -71,7 +77,7 @@ class ConsultarUsuarioComando implements Comando {
             informacao+="\nData da solicitação: "+reserva.getData()+"\n";
         }
 
-        System.out.println(informacao);
+        console.mostrarMensagem(informacao);
     }
 }
 
@@ -79,6 +85,7 @@ class ConsultarNotificacoesComando implements Comando {
     @Override
     public void executar(Parametros parametros){
 
+        ConsoleIO console = ConsoleIO.getInstancia();
         Repositorio repositorio = parametros.getRepositorio();
         int codigoUsuario = parametros.getCodigoUsuario();
         
@@ -86,6 +93,6 @@ class ConsultarNotificacoesComando implements Comando {
 
         Observer observer = (Observer) usuario;
 
-        System.out.println("\n" + usuario.getNome() + " foi notificado "+ observer.getQtdNotificacoes()+ " vezes.\n");
+        console.mostrarMensagem("\n" + usuario.getNome() + " foi notificado "+ observer.getQtdNotificacoes()+ " vezes.\n");
     }
 }

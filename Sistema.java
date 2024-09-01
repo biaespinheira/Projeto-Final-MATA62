@@ -19,11 +19,12 @@ public class Sistema {
     }
 
     public void executarComando(String strComando, Parametros parametros) {
+        ConsoleIO console = ConsoleIO.getInstancia();
         Comando comando = comandos.get(strComando);
         if (comando != null) {
             comando.executar(parametros);
         } else {
-            System.out.println("Comando não reconhecido: " + strComando);
+            console.mostrarMensagem("Comando não reconhecido: " + strComando);
         }
     }
 }
