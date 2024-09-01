@@ -6,7 +6,6 @@ public class ConsoleIO {
     private Scanner scanner;
 
     private ConsoleIO() {
-        // Inicializa o scanner e o writer
         scanner = new Scanner(System.in);
     }
 
