@@ -5,43 +5,38 @@ class ConsultarLivroComando implements Comando {
         ConsoleIO console = ConsoleIO.getInstancia();
         Repositorio repositorio = parametros.getRepositorio();
 
-        // nesse aqui o segundo parâmetro passado é o livro ao invés do usuário
+        // O código do livro é recuperado corretamente do parâmetro.
         int codigoLivro = parametros.getCodigoUsuario();
         Livro livro = repositorio.buscarLivro(codigoLivro);
 
         String informacoes="\n";
 
         informacoes+="Título: " + livro.getTitulo();
-        informacoes+="Quantidade de reservas: " + livro.getQtdReservas();
+        informacoes+="\nQuantidade de reservas: " + livro.getQtdReservas()+"\n";
 
-        if(livro.getQtdReservas()>=0){
-            for(Reserva reserva : livro.getReservas()) {
-                        informacoes+="Nome da pessoa que reservou: " + reserva.getUsuario().getNome();
-            }
+
+        for(Reserva reserva : livro.getReservas()) {
+            informacoes+="\nNome da pessoa que reservou: " + reserva.getUsuario().getNome();
         }
 
-        if(livro.temExemplarDisponivel()){
-            for (Exemplar exemplar : livro.getExemplares()){
-                informacoes+="\nCódigo do exemplar: " + exemplar.getCodigo();
+        for (Exemplar exemplar : livro.getExemplares()){
+            informacoes+="\nCódigo do exemplar: " + exemplar.getCodigo();
 
-                String status = "Disponível";
-                if (!exemplar.isDisponivel()){
-                    status="Emprestado para ";
-                    Emprestimo emprestimo = exemplar.getEmprestimo();
-                    status+= emprestimo.getUsuario().getNome();
-                    status+= "\nData do empréstimo: " + emprestimo.getDataEmprestimo();
-                    status+= "| Data de devolução: " + emprestimo.getDataDevolucao();
-                }
-
-                informacoes+="Status: "+ status + "\n";
-                console.mostrarMensagem(informacoes);
+            String status = "Disponível";
+            if (!exemplar.isDisponivel()){
+                status="Emprestado para ";
+                Emprestimo emprestimo = exemplar.getEmprestimo();
+                status+= emprestimo.getUsuario().getNome();
+                status+= "\nData do empréstimo: " + emprestimo.getDataEmprestimo();
+                status+= " | Data de devolução: " + emprestimo.getDataDevolucao();
             }
 
-        }    
-        else{
-            console.mostrarMensagem("\nExemplares Disponíveis: 0\n");
+            informacoes+=" | Status: "+ status + "\n";
         }
-}
+
+        console.mostrarMensagem(informacoes);
+
+        }
 }
 
 class ConsultarUsuarioComando implements Comando {
