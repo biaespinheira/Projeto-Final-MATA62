@@ -16,16 +16,15 @@ class DevolverComando implements Comando {
 
         for (Emprestimo emprestimo : emprestimos) {
             
-            if (emprestimo.getLivro().equals(livro)) {
+            if (emprestimo.getExemplar().getLivro().equals(livro)) {
 
-                emprestimo.getLivro().devolverExemplar();
-
-                emprestimos.remove(emprestimo);
-                System.out.println("Devolução realizada: " + usuario.getNome() + " devolveu "+ livro.getTitulo());
+                usuario.removerEmprestimo(emprestimo);
+                emprestimo.getExemplar().getLivro().devolverExemplar();
+                System.out.println("\nDevolução realizada: " + usuario.getNome() + " devolveu o livro: "+ livro.getTitulo()+"\n");
                 return;
             }
 
         }
-        System.out.println("Usuário não possui emprestimos em aberto para esse livro.\n");
+        System.out.println("\nUsuário não possui emprestimos em aberto para esse livro.\n");
     }
 }

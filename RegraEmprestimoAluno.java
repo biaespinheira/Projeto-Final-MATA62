@@ -3,8 +3,9 @@ class RegraEmprestimoAluno implements IRegraEmprestimo {
     @Override
     public boolean podeEmprestar(Livro livro, Usuario usuario) {
 
+        boolean podeEmprestar = true;
+
         boolean disponivel = livro.temExemplarDisponivel();
-        System.out.println("Disponível: " + disponivel);
 
         boolean naoDevedor = true;
         for (Emprestimo emprestimo : usuario.getEmprestimos()) {
@@ -13,23 +14,33 @@ class RegraEmprestimoAluno implements IRegraEmprestimo {
                 break;
             }
         }
-        System.out.println("Não devedor: " + naoDevedor);
 
         boolean abaixoLimite = usuario.getEmprestimos().size() < usuario.getLimiteLivros();
-        System.out.println("Abaixo do limite de empréstimos: " + abaixoLimite);
 
         boolean temReserva = livro.temReserva(usuario);
-        System.out.println("Usuário tem reserva: " + temReserva);
 
         boolean disponivelSemReserva = livro.getQtdDisponiveis() > livro.getQtdReservas();
-        System.out.println("Disponível sem reserva: " + disponivelSemReserva);
 
         boolean jaEmprestado = usuario.temEmprestimo(livro);
-        System.out.println("Ja tem empréstimo do livro: " + jaEmprestado);
 
-        boolean podeEmprestar = disponivel && naoDevedor && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
-        System.out.println("Usuário " + usuario.getNome() + " pode pegar emprestado? " + podeEmprestar);
-        
+        podeEmprestar = disponivel && naoDevedor && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
+
+        if(!disponivel){
+            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
+        }
+        else if(!naoDevedor){
+            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
+        }
+        else if(!abaixoLimite){
+            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de empréstimos!");
+        }
+        else if(jaEmprestado){
+            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois já tem "+ livro.getTitulo() + " emprestado!");
+        }
+        else if(!(temReserva || disponivelSemReserva) ){
+            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!");
+        }
+
         return podeEmprestar;
     }
 }

@@ -67,21 +67,20 @@ class Livro implements Subject{
     public Exemplar emprestarExemplar() {
         for (Exemplar exemplar : exemplares) {
             if (exemplar.isDisponivel()) {
-                exemplar.setDisponivel(false);
+                exemplares.remove(exemplar);
                 return exemplar;
             }
         }
         return null;
     }
 
-    public Exemplar devolverExemplar(){
+    public void devolverExemplar(){
         for (Exemplar exemplar : exemplares) {
             if (!exemplar.isDisponivel()) {
-                exemplar.setDisponivel(true);
-                return exemplar;
+                exemplar.devolver();
+            break;
             }
         }
-        return null;
     }
 
     public boolean temReserva(Usuario usuario){
@@ -119,4 +118,11 @@ class Livro implements Subject{
         }
     }
 
+    public List<Reserva> getReservas(){
+        return this.reservas;
+    }
+
+    public List<Exemplar> getExemplares(){
+        return this.exemplares;
+    }
 }

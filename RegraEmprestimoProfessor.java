@@ -15,7 +15,16 @@ class RegraEmprestimoProfessor implements IRegraEmprestimo {
         
         boolean podeEmprestar = disponivel && naoDevedor;
 
-        System.out.println("Professor " + usuario.getNome() + " pode emprestar o livro? " + podeEmprestar);
+        if(podeEmprestar){
+            System.out.println("Professor " + usuario.getNome() + " pode pegar o livro!");
+        }
+        else if(!disponivel){
+            System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
+        }
+        else if(!naoDevedor){
+            System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
+        }
+
         return podeEmprestar;
     }
 }
