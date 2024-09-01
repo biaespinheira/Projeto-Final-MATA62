@@ -2,6 +2,7 @@ class RegistrarObservadorComando implements Comando {
 
     @Override
     public void executar(Parametros parametros) {
+        ConsoleIO console = ConsoleIO.getInstancia();
         Repositorio repositorio = parametros.getRepositorio();
 
         int codigoLivro = parametros.getCodigoLivro();
@@ -13,6 +14,6 @@ class RegistrarObservadorComando implements Comando {
         Observer observador = (Observer) usuario;
 
         livro.registrarObservador(observador);
-        System.out.println(usuario.getNome() + " registrado como observador do livro " + livro.getTitulo());
+        console.mostrarMensagem(usuario.getNome() + " registrado como observador do livro " + livro.getTitulo());
     }
 }

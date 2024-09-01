@@ -4,6 +4,8 @@ class ReservarComando implements Comando {
 
     @Override
     public void executar(Parametros parametros) {
+        ConsoleIO console = ConsoleIO.getInstancia();
+
         Repositorio repositorio = parametros.getRepositorio();
 
         int codigoLivro = parametros.getCodigoLivro();
@@ -13,12 +15,12 @@ class ReservarComando implements Comando {
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
         if (usuario.qtdReservas()<3){
-            System.out.println("\nReserva realizada: " + usuario.getNome() + " reservou "+ livro.getTitulo()+"\n");
+            console.mostrarMensagem("\nReserva realizada: " + usuario.getNome() + " reservou "+ livro.getTitulo()+"\n");
             Reserva reserva = new Reserva(usuario, livro, new Date());
             usuario.adicionarReserva(reserva);
             livro.adicionarReserva(reserva);
         } else{
-            System.out.println("\nNão foi possível realizar a reserva pois o usuário já possui mais de 3 reservas!\n");
+            console.mostrarMensagem("\nNão foi possível realizar a reserva pois o usuário já possui mais de 3 reservas!\n");
         }
     }
 

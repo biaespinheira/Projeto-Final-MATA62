@@ -2,6 +2,8 @@ class RegraEmprestimoProfessor implements IRegraEmprestimo {
     @Override
     
     public boolean podeEmprestar(Livro livro, Usuario usuario) {
+        ConsoleIO console = ConsoleIO.getInstancia();
+
         boolean disponivel = livro.temExemplarDisponivel();
         boolean naoDevedor = true;
 
@@ -16,13 +18,13 @@ class RegraEmprestimoProfessor implements IRegraEmprestimo {
         boolean podeEmprestar = disponivel && naoDevedor;
 
         if(podeEmprestar){
-            System.out.println("Professor " + usuario.getNome() + " pode pegar o livro!");
+            console.mostrarMensagem("\nProfessor " + usuario.getNome() + " pode pegar o livro!\n");
         }
         else if(!disponivel){
-            System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
+            console.mostrarMensagem("\nProfessor " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!\n");
         }
         else if(!naoDevedor){
-            System.out.println("Professor " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
+            console.mostrarMensagem("\nProfessor " + usuario.getNome() + " não pode pegar o livro pois está devedor!\n");
         }
 
         return podeEmprestar;

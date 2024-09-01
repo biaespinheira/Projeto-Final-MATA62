@@ -5,6 +5,7 @@ class DevolverComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
         Repositorio repositorio = parametros.getRepositorio();
+        ConsoleIO console = ConsoleIO.getInstancia();
 
         int codigoLivro = parametros.getCodigoLivro();
         Livro livro = repositorio.buscarLivro(codigoLivro);
@@ -20,11 +21,11 @@ class DevolverComando implements Comando {
 
                 usuario.removerEmprestimo(emprestimo);
                 emprestimo.getExemplar().getLivro().devolverExemplar();
-                System.out.println("\nDevolução realizada: " + usuario.getNome() + " devolveu o livro: "+ livro.getTitulo()+"\n");
+                console.mostrarMensagem("\nDevolução realizada: " + usuario.getNome() + " devolveu o livro: "+ livro.getTitulo()+"\n");
                 return;
             }
 
         }
-        System.out.println("\nUsuário não possui emprestimos em aberto para esse livro.\n");
+        console.mostrarMensagem("\nUsuário não possui emprestimos em aberto para esse livro.\n");
     }
 }

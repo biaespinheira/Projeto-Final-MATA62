@@ -3,6 +3,8 @@ class RegraEmprestimoAluno implements IRegraEmprestimo {
     @Override
     public boolean podeEmprestar(Livro livro, Usuario usuario) {
 
+        ConsoleIO console = ConsoleIO.getInstancia();
+
         boolean podeEmprestar = true;
 
         boolean disponivel = livro.temExemplarDisponivel();
@@ -26,19 +28,19 @@ class RegraEmprestimoAluno implements IRegraEmprestimo {
         podeEmprestar = disponivel && naoDevedor && abaixoLimite && (temReserva || disponivelSemReserva) && !jaEmprestado;
 
         if(!disponivel){
-            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
+            console.mostrarMensagem("\nAluno " + usuario.getNome() + " não pode pegar o livro pois não tem exemplares disponíveis!");
         }
         else if(!naoDevedor){
-            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
+            console.mostrarMensagem("\nAluno " + usuario.getNome() + " não pode pegar o livro pois está devedor!");
         }
         else if(!abaixoLimite){
-            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de empréstimos!");
+            console.mostrarMensagem("\nAluno " + usuario.getNome() + " não pode pegar o livro pois ultrapassou o limite de empréstimos!");
         }
         else if(jaEmprestado){
-            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois já tem "+ livro.getTitulo() + " emprestado!");
+            console.mostrarMensagem("\nAluno " + usuario.getNome() + " não pode pegar o livro pois já tem "+ livro.getTitulo() + " emprestado!");
         }
         else if(!(temReserva || disponivelSemReserva) ){
-            System.out.println("\nAluno " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!");
+            console.mostrarMensagem("\nAluno " + usuario.getNome() + " não pode pegar o livro pois não tem reserva!");
         }
 
         return podeEmprestar;

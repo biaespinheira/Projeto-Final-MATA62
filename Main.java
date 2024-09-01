@@ -4,14 +4,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Repositorio repositorio = Repositorio.getInstance();
+        Repositorio repositorio = Repositorio.getInstancia();
+        ConsoleIO console = ConsoleIO.getInstancia();
         Sistema sistema = new Sistema();
 
         try (Scanner scanner = new Scanner(System.in)) {
 
             while (true) {
-                System.out.println("Digite o comando:");
-                String input = scanner.nextLine();
+                console.mostrarMensagem("Digite o comando:");
+                String input = console.lerComando();
 
                 String[] parts = input.split(" ");
                 String comandoStr = parts[0];

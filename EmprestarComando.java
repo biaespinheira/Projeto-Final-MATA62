@@ -5,6 +5,7 @@ class EmprestarComando implements Comando {
     @Override
     public void executar(Parametros parametros) {
 
+        ConsoleIO console = ConsoleIO.getInstancia();
         Repositorio repositorio = parametros.getRepositorio();
 
         int codigoLivro = parametros.getCodigoLivro();
@@ -27,7 +28,7 @@ class EmprestarComando implements Comando {
             livro.removerReserva(usuario);
             usuario.removerReserva(livro);
 
-            System.out.println("\nEmpréstimo realizado: " + usuario.getNome() + " pegou o livro: " + livro.getTitulo()+ "\n");}
+            console.mostrarMensagem("\nEmpréstimo realizado: " + usuario.getNome() + " pegou o livro: " + livro.getTitulo()+ "\n");}
     }
 
 
