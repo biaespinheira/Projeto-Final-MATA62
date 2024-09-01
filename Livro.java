@@ -1,10 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
 
-interface Subject {
-    void registrarObservador(Observer observer);
-}
-
 class Livro implements Subject{
     
     private int codigo;
