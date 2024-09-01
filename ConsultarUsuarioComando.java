@@ -8,7 +8,7 @@ class ConsultarUsuarioComando implements Comando {
         int codigoUsuario = parametros.getCodigoUsuario();
         Usuario usuario = repositorio.buscarUsuario(codigoUsuario);
 
-        String informacao="";
+        String informacao="\nUsuário: "+ usuario.getNome()+"\n";
         for (Emprestimo emprestimo : usuario.getEmprestimos()){
             informacao+="\nEmpréstimo (corrente) do livro: " + emprestimo.getExemplar().getLivro().getTitulo();
             informacao+="\nData do empréstimo "+ emprestimo.getDataEmprestimo();
