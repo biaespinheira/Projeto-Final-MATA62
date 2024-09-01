@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Date;
 import java.util.ArrayList;
 
 abstract class Usuario {
@@ -8,11 +9,10 @@ abstract class Usuario {
   private int prazoDias;
   private int limiteLivros;
   private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
-
+  private List<Emprestimo> emprestimosPassados = new ArrayList <Emprestimo> ();
   private IRegraEmprestimo regraEmprestimo;
-    
-    // preciso de um metodo para verificar se um usuário já tem reservas para esse livro
   private List<Reserva> reservas = new ArrayList<Reserva>();
+  private List<Reserva> reservasPassadas = new ArrayList <Reserva> ();
 
   public Usuario(String nome, int codigo, IRegraEmprestimo regraEmprestimo, int prazoDias, int limiteLivros) {
       this.nome = nome;
@@ -42,8 +42,16 @@ abstract class Usuario {
       return emprestimos;
   }
 
+  public List<Emprestimo> getEmprestimosPassados(){
+    return this.emprestimosPassados;
+  }
+
   public List<Reserva> getReservas() {
       return reservas;
+  }
+
+  public List<Reserva> getReservasPassadas(){
+    return this.reservasPassadas;
   }
 
   public void adicionarEmprestimo(Emprestimo emprestimo) {
@@ -58,6 +66,7 @@ abstract class Usuario {
       for (Reserva reserva : this.reservas){
         if (reserva.getLivro()==livro){
             this.reservas.remove(reserva);
+            this.reservasPassadas.add(reserva);
             break;
         }
       }
@@ -69,7 +78,7 @@ abstract class Usuario {
 
   public boolean temEmprestimo(Livro livro){
     for (Emprestimo emprestimo : this.emprestimos){
-        if (emprestimo.getLivro()==livro){
+        if (emprestimo.getExemplar().getLivro()==livro){
             return true;
         }
     }
@@ -78,6 +87,17 @@ abstract class Usuario {
 
   public int qtdReservas(){
     return this.reservas.size();
+  }
+
+  public void removerEmprestimo(Emprestimo emprestimoAntigo){
+    for (Emprestimo emprestimo : emprestimos){
+        if (emprestimo.equals(emprestimoAntigo)){
+            this.emprestimos.remove(emprestimo);
+            emprestimoAntigo.setDataDevolucao(new Date());
+            this.emprestimosPassados.add(emprestimoAntigo);
+            return;
+        }
+    }
   }
 
 }

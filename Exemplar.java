@@ -1,22 +1,35 @@
 class Exemplar {
     private int codigoExemplar;
-    private boolean disponivel;
-    // preciso de um atributo do tipo emprestimo para saber se está emprestado e a partir disso saber também qual usuário está com o livro
+    private Emprestimo emprestimo;
+    private Livro livro;
 
-    public Exemplar(int codigoExemplar) {
+    public Exemplar(int codigoExemplar, Livro livro) {
         this.codigoExemplar = codigoExemplar;
-        this.disponivel = true;
+        this.emprestimo=null;
+        this.livro=livro;
     }
 
-    public int getCodigoExemplar() {
+    public Livro getLivro(){
+        return this.livro;
+    }
+
+    public int getCodigo() {
         return codigoExemplar;
     }
 
     public boolean isDisponivel() {
-        return disponivel;
+        return emprestimo == null;
     }
 
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
+    public void emprestar(Emprestimo emprestimo){
+        this.emprestimo=emprestimo;
+    }
+
+    public void devolver(){
+        this.emprestimo=null;
+    }
+
+    public Emprestimo getEmprestimo(){
+        return this.emprestimo;
     }
 }

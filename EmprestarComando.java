@@ -21,16 +21,13 @@ class EmprestarComando implements Comando {
                     new Date(),
                     new Date(
                             System.currentTimeMillis() + usuario.getPrazoDias() * 24 * 60 * 60 * 1000));
-
+            exemplarEmprestado.emprestar(emprestimo);
+            livro.adicionarExemplar(exemplarEmprestado);
             usuario.adicionarEmprestimo(emprestimo);
             livro.removerReserva(usuario);
             usuario.removerReserva(livro);
 
-            System.out.println("Empréstimo realizado: " + usuario.getNome() + " pegou o livro."
-                    + livro.getTitulo());
-        } else {
-            System.out.println("Empréstimo não pode ser realizado para " + usuario.getNome());
-        }
+            System.out.println("\nEmpréstimo realizado: " + usuario.getNome() + " pegou o livro: " + livro.getTitulo()+ "\n");}
     }
 
 

@@ -11,10 +11,14 @@ class Reserva {
     }
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public Livro getLivro() {
-        return livro;
+        return this.livro;
+    }
+
+    public Date getData(){
+        return this.dataReserva;
     }
 }

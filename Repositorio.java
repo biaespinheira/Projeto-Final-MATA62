@@ -38,15 +38,15 @@ public class Repositorio {
                 "AddisonWesley Professional", "Martin Fowler", 3, 2003);
 
         // Adicionar exemplares
-        livro1.adicionarExemplar(new Exemplar(1));
-        livro1.adicionarExemplar(new Exemplar(2));
-        livro2.adicionarExemplar(new Exemplar(3));
-        livro3.adicionarExemplar(new Exemplar(4));
-        livro4.adicionarExemplar(new Exemplar(5));
-        livro5.adicionarExemplar(new Exemplar(6));
-        livro5.adicionarExemplar(new Exemplar(7));
-        livro7.adicionarExemplar(new Exemplar(8));
-        livro7.adicionarExemplar(new Exemplar(9));
+        livro1.adicionarExemplar(new Exemplar(1, livro1));
+        livro1.adicionarExemplar(new Exemplar(2, livro1));
+        livro2.adicionarExemplar(new Exemplar(3, livro2));
+        livro3.adicionarExemplar(new Exemplar(4, livro3));
+        livro4.adicionarExemplar(new Exemplar(5, livro4));
+        livro5.adicionarExemplar(new Exemplar(6, livro5));
+        livro5.adicionarExemplar(new Exemplar(7, livro5));
+        livro7.adicionarExemplar(new Exemplar(8, livro7));
+        livro7.adicionarExemplar(new Exemplar(9, livro7));
 
         // Adicionar livros ao sistema
         this.livros.add(livro1);
